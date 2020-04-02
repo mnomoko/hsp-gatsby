@@ -1,16 +1,29 @@
 import React from "react"
-import { Link } from "gatsby"
+import ReactMarkdown from "react-markdown";
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+const Page2 = ({data}) => {
+  if(data) {
+    return (
+      <section className="site-section" id="why-us-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center" data-aos="fade">
+              <h2 className="section-title-body">Pourquoi nous ?</h2>
+            </div>
+          </div>
+          <div className="row col-12">
+            {data.allStrapiService.edges.map(document => (
+              <div className="col-md-12 col-sm-12 mb-4" key={document.node.id}>
+                <h3 className="h3 text-black">{document.node.title}</h3>
+                <ReactMarkdown source={document.node.description}></ReactMarkdown>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+  else return null;
+};
 
-const SecondPage = () => (
-  <Layout>
-    <SEO title="Page two" />
-    <h1>Hi from the second page</h1>
-    <p>Welcome to page 2</p>
-    <Link to="/">Go back to the homepage</Link>
-  </Layout>
-)
-
-export default SecondPage
+export default Page2
